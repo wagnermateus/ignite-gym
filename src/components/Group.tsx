@@ -1,4 +1,4 @@
-import { IPressableProps, Pressable, Text } from "native-base";
+import { Text, Pressable, IPressableProps } from "native-base";
 
 type Props = IPressableProps & {
   name: string;
