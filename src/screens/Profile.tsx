@@ -9,6 +9,7 @@ import {
   VStack,
   Text,
   Heading,
+  useToast,
 } from "native-base";
 import { useState } from "react";
 import { Alert, TouchableOpacity } from "react-native";
@@ -21,6 +22,7 @@ export function Profile() {
     "https://github.com/wagnermateus.png"
   );
   const PHOTO_SIZE = 33;
+  const toast = useToast();
 
   async function handleUserPhotoSelected() {
     setPhotoIsLoaded(false);
@@ -39,10 +41,13 @@ export function Profile() {
         const photoInfo = await FileSystem.getInfoAsync(
           photoSelected.assets[0].uri
         );
-        if (photoInfo.exists && photoInfo.size / 1024 / 1024 > 5) {
-          return Alert.alert(
-            "Essa imagem é muito grande. Escolha uma de até 5MB."
-          );
+
+        if (photoInfo.exists && (photoInfo.size / 1024 / 1024) > 5) {
+          return toast.show({
+            title: "Essa imagem é muito grande! Escolha uma de até 5MB.",
+            placement: "top",
+            bgColor: "red.500",
+          });
         }
 
         setUserPhoto(photoSelected.assets[0].uri);
