@@ -22,6 +22,7 @@ export function Profile() {
   const PHOTO_SIZE = 33;
 
   async function handleUserPhotoSelected() {
+    setPhotoIsLoaded(false);
     try {
       const photoSelected = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -38,6 +39,8 @@ export function Profile() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setPhotoIsLoaded(true);
     }
   }
 
