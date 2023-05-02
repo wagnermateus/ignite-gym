@@ -12,10 +12,21 @@ import {
 } from "native-base";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 export function Profile() {
   const [photoIsLoaded, setPhotoIsLoaded] = useState(true);
   const PHOTO_SIZE = 33;
+
+  async function handleUserPhotoSelected() {
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      aspect: [4, 4],
+      allowsEditing: true,
+    });
+  }
+
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
@@ -37,7 +48,7 @@ export function Profile() {
             />
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelected}>
             <Text
               color="green.500"
               fontWeight="bold"
