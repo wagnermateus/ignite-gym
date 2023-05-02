@@ -42,7 +42,7 @@ export function Profile() {
           photoSelected.assets[0].uri
         );
 
-        if (photoInfo.exists && (photoInfo.size / 1024 / 1024) > 5) {
+        if (photoInfo.exists && photoInfo.size / 1024 / 1024 > 5) {
           return toast.show({
             title: "Essa imagem é muito grande! Escolha uma de até 5MB.",
             placement: "top",
@@ -102,6 +102,7 @@ export function Profile() {
             mb={2}
             alignSelf="flex-start"
             mt={12}
+            fontFamily="heading"
           >
             Alterar senha
           </Heading>
