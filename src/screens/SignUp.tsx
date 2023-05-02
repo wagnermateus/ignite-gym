@@ -8,11 +8,15 @@ import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
 
 export function SignUp() {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm();
   const navigation = useNavigation();
 
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  function handleSignUp(data: any) {
+    console.log({ data });
   }
   return (
     <ScrollView
@@ -82,6 +86,8 @@ export function SignUp() {
                 secureTextEntry
                 onChangeText={onChange}
                 value={value}
+                onSubmitEditing={handleSubmit(handleSignUp)}
+                returnKeyType="send"
               />
             )}
           />
@@ -93,7 +99,7 @@ export function SignUp() {
           title="Voltar para o login"
           variant="outline"
           mt={24}
-          onPress={handleGoBack}
+          onPress={handleSubmit(handleSignUp)}
         />
       </VStack>
     </ScrollView>
