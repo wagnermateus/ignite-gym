@@ -16,15 +16,24 @@ import * as ImagePicker from "expo-image-picker";
 
 export function Profile() {
   const [photoIsLoaded, setPhotoIsLoaded] = useState(true);
+  const [userPhoto, setUserPhoto] = useState(
+    "https://github.com/wagnermateus.png"
+  );
   const PHOTO_SIZE = 33;
 
   async function handleUserPhotoSelected() {
-    await ImagePicker.launchImageLibraryAsync({
+    const photoSelected = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
       aspect: [4, 4],
       allowsEditing: true,
     });
+
+    if (photoSelected.canceled) {
+      return;
+    }
+
+    setUserPhoto(photoSelected.assets[0].uri);
   }
 
   return (
@@ -42,7 +51,7 @@ export function Profile() {
           />
           {photoIsLoaded && (
             <UserPhoto
-              source={{ uri: "https://github.com/wagnermateus.png" }}
+              source={{ uri: userPhoto }}
               alt="Foto do usuário"
               size={33}
             />
