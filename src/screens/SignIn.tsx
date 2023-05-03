@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "@hooks/useAuth";
 import { AppError } from "@utils/AppError";
+import { useState } from "react";
 
 type FormData = {
   email: string;
@@ -24,6 +25,7 @@ type FormData = {
 };
 
 export function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
   const { singIn } = useAuth();
   const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
@@ -38,6 +40,7 @@ export function SignIn() {
   }
   async function handleSignIn({ email, password }: FormData) {
     try {
+      setIsLoading(true);
       await singIn(email, password);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -51,6 +54,7 @@ export function SignIn() {
         placement: "top",
         bgColor: "red.500",
       });
+      setIsLoading(false);
     }
   }
   return (
@@ -105,7 +109,11 @@ export function SignIn() {
             )}
           />
 
-          <Button title="Acessar" onPress={handleSubmit(handleSignIn)} />
+          <Button
+            title="Acessar"
+            onPress={handleSubmit(handleSignIn)}
+            isLoading={isLoading}
+          />
 
           <Center mt={24}>
             <Text color="gray.100" fontSize="sm" mb={3} fontFamily="body">
