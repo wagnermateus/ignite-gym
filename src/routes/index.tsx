@@ -7,7 +7,7 @@ import { useAuth } from "@hooks/useAuth";
 export function Routes() {
   const { colors } = useTheme();
   const { user } = useAuth();
-
+  console.log(user);
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
   return (
