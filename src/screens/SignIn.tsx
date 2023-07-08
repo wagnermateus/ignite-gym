@@ -17,7 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "@hooks/useAuth";
 import { AppError } from "@utils/AppError";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { tagUserIsLoggedIn } from "../notifications/notificationsTags";
 
 type FormData = {
   email: string;
@@ -57,6 +58,10 @@ export function SignIn() {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    tagUserIsLoggedIn(false);
+  }, []);
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}

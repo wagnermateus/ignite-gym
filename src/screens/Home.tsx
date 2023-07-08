@@ -9,6 +9,7 @@ import { AppError } from "@utils/AppError";
 import { api } from "@services/api";
 import { ExerciseDTO } from "@dtos/ExerciseDTO";
 import { Loading } from "@components/Loading";
+import { tagUsersLastExerciseDay } from "../notifications/notificationsTags";
 export function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState<string[]>([]);
@@ -58,9 +59,14 @@ export function Home() {
       setIsLoading(false);
     }
   }
+  async function fecthLastExerciseDay() {
+    const response = (await api.get("/history")).data;
 
+    tagUsersLastExerciseDay(response[0].title);
+  }
   useEffect(() => {
     fetchGroups();
+    fecthLastExerciseDay();
   }, []);
 
   useFocusEffect(
@@ -97,7 +103,7 @@ export function Home() {
       {isLoading ? (
         <Loading />
       ) : (
-        <VStack px={8}>
+        <VStack px={8} flex={1}>
           <HStack justifyContent="space-between" mb={5}>
             <Heading color="gray.200" fontSize="md" fontFamily="heading">
               Exercícios

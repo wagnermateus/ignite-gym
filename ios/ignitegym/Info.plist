@@ -25,7 +25,14 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>ignite-gym</string>
           <string>com.mahayat.ignitegym</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+ignite-gym</string>
         </array>
       </dict>
     </array>
